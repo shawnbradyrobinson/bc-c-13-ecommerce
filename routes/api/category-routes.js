@@ -25,8 +25,13 @@ router.get('/:id', async(req, res) => {
   res.json(recordData);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
+  const newCategoryData = await Category.create({
+      category_name: req.body.category_name,
+  })
+  const category = newCategoryData.get({plain:true});
+  res.status(200).json(category);
 });
 
 router.put('/:id', (req, res) => {
